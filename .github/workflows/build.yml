@@ -15,7 +15,12 @@ jobs:
       - uses: subosito/flutter-action@v2
         with:
           channel: 'stable'
-      - run: flutter build apk --debug
+      - name: Install dependencies
+        run: flutter pub get
+      - name: Analyze code (Show actual Dart errors)
+        run: flutter analyze || true
+      - name: Build APK Debug with Verbose Log
+        run: flutter build apk --debug -v
       - uses: actions/upload-artifact@v4
         with:
           name: ZarinParseh-App
